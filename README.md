@@ -8,17 +8,17 @@ Java JDK</br>
 
 ## Contributing
 
-#Fork the project on github.</ br>
+Fork the project on github.
 
-#Create a feature branch.</ br>
+Create a feature branch.
 
-#Match coding style (braces, spacing, etc.) This is best achieved using CMD+Option+L (Reformat code) on Mac (not sure for Windows) with Android Studio defaults.</ br>
+Match coding style (braces, spacing, etc.) This is best achieved using CMD+Option+L (Reformat code) on Mac (not sure for Windows) with Android Studio defaults.
 
-#Please keep PR titles easy to read and descriptive of changes, this will make them easier to merge.</ br>
+Please keep PR titles easy to read and descriptive of changes, this will make them easier to merge.
 
-#Pull requests must be made against development branch. Any other branch (unless specified by the maintainers) will get rejected.</ br>
+Pull requests must be made against development branch. Any other branch (unless specified by the maintainers) will get rejected.
 
-#Have fun!</ br>
+Have fun!
 
 ## Authors
 * **Rahul Tuteja**  - [doomers](https://github.com/doomers) 
