@@ -114,7 +114,7 @@ public class MainActivity extends Activity {
 
 
 
-    BroadcastReceiver mReceiver =new BroadcastReceiver() {
+    BroadcastReceiver mReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
             String action = intent.getAction();
