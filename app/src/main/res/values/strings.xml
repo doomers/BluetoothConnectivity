@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">BluetoothConnectivity</string>
-    <string name="paired_list_text">PAIRED DEVICES</string>
-    <string name="new_device_list">NEW DEVICES</string>
-    <string name="searchbutton">CLICK HERE</string>
+    <string name="paired_list_text">Paired Devices</string>
+    <string name="new_device_list">New Devices</string>
+    <string name="searchbutton">SCAN NEW DEVICES</string>
 </resources>
