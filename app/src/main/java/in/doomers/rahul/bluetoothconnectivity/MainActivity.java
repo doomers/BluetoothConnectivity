@@ -1,6 +1,6 @@
 package in.doomers.rahul.bluetoothconnectivity;
 
-import android.app.Activity;
+
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.content.BroadcastReceiver;
@@ -8,6 +8,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -16,7 +17,8 @@ import android.widget.Toast;
 
 import java.util.Set;
 
-public class MainActivity extends Activity {
+public class MainActivity extends AppCompatActivity {
+
     //declaring intentfilter
     IntentFilter  filter ;
     //declaring bluetooth adapter
@@ -39,8 +41,6 @@ public class MainActivity extends Activity {
             public void onClick(View v) {
                 //call for startdiscovery()
                 startDiscovery();
-
-
             }
         });
         //Initializing arrayadapter
@@ -99,8 +99,12 @@ public class MainActivity extends Activity {
                 Toast.makeText(this, "BLUETOOTH IS ALREADY ON", Toast.LENGTH_LONG).show();
             }
         //Bluettoth Devices
-        Set<BluetoothDevice> pairedevices=badapter.getBondedDevices();
+        Set<BluetoothDevice> pairedevices = badapter.getBondedDevices();
             if(pairedevices.size()>0){
+
+                if (pairedDeviceAdapter != null && !pairedDeviceAdapter.isEmpty())
+                    pairedDeviceAdapter.clear();
+
                 for(BluetoothDevice bdevice: pairedevices) {
                     pairedDeviceAdapter.add(bdevice.getName().toString() + " \n" + bdevice.getAddress());
                 }
@@ -113,8 +117,7 @@ public class MainActivity extends Activity {
             }
 
 
-
-    BroadcastReceiver mReceiver =new BroadcastReceiver() {
+    BroadcastReceiver mReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
             String action = intent.getAction();

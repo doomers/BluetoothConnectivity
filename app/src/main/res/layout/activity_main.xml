@@ -9,16 +9,30 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/paired_list_text"
-        android:textSize="25sp"
+        android:textSize="17sp"
         android:id="@+id/textView"
+        android:paddingLeft="16dp"
+        android:paddingRight="4dp"
+        android:layout_marginTop="10dp"
+        android:paddingBottom="6dp"
         android:layout_alignParentTop="true"
-        android:background="#37fe00" />
+        />
+
+    <View
+        android:id="@+id/filler"
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_below="@id/textView"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="8dp"
+        android:background="#EEE"
+        />
 
     <ListView
         android:layout_width="match_parent"
         android:layout_height="200sp"
         android:id="@+id/paired_device_list"
-        android:layout_below="@+id/textView"
+        android:layout_below="@+id/filler"
         android:layout_alignLeft="@+id/textView"
         android:layout_alignStart="@+id/textView" />
 
@@ -27,34 +41,49 @@
         android:layout_height="wrap_content"
         android:text="@string/new_device_list"
         android:id="@+id/textView2"
-        android:textSize="25sp"
+        android:textSize="17sp"
         android:layout_below="@+id/paired_device_list"
         android:layout_alignLeft="@+id/paired_device_list"
         android:layout_alignStart="@+id/paired_device_list"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
-        android:background="#f84b4b"
-        android:textColor="#000000" />
+        android:paddingLeft="16dp"
+        android:paddingRight="4dp"
+        android:layout_marginTop="10dp"
+        android:paddingBottom="6dp" />
+
+    <View
+        android:id="@+id/filler2"
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_below="@id/textView2"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="8dp"
+        android:background="#EEE"
+        />
 
     <ListView
         android:layout_width="match_parent"
         android:layout_height="200sp"
         android:id="@+id/new_device_list"
-        android:layout_below="@+id/textView2"
+        android:layout_below="@+id/filler2"
         android:layout_alignLeft="@+id/textView2"
         android:layout_alignStart="@+id/textView2" />
 
     <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/button_height"
         android:text="@string/searchbutton"
         android:id="@+id/button"
+        android:layout_marginLeft="@dimen/button_margin"
+        android:layout_marginRight="@dimen/button_margin"
+        android:layout_marginBottom="@dimen/button_margin"
         android:layout_alignParentBottom="true"
-        android:layout_alignLeft="@+id/new_device_list"
-        android:layout_alignStart="@+id/new_device_list"
-        android:layout_alignRight="@+id/new_device_list"
-        android:layout_alignEnd="@+id/new_device_list"
-        android:textStyle="bold|italic"
-        android:textColor="#15cdd3"
+        android:layout_alignParentRight="true"
+        android:textStyle="bold"
+        android:layout_alignParentEnd="true"
+        android:theme="@style/ButtonTheme"
+        android:textColor="@color/white"
         android:visibility="visible" />
+
 </RelativeLayout>
