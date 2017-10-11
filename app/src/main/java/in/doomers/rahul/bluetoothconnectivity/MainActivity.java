@@ -8,10 +8,10 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -20,13 +20,13 @@ import java.util.Set;
 public class MainActivity extends AppCompatActivity {
 
     //declaring intentfilter
-    IntentFilter  filter ;
+    private IntentFilter mActionFoundFilter, mActionDiscoveryFinishedFilter;
     //declaring bluetooth adapter
-    BluetoothAdapter badapter;
+    private BluetoothAdapter mBluetoothAdapter;
     // declaring ArrayAdapter
-    private ArrayAdapter<String> pairedDeviceAdapter,NewDevicesArrayAdapter;
+    private ArrayAdapter<String> mPairedDeviceAdapter, mNewDevicesArrayAdapter;
     //used to be a parameter during onstartActivity call
-    int REQUEST_CODE=1;
+    int REQUEST_CODE = 1000;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,8 +35,8 @@ public class MainActivity extends AppCompatActivity {
 
 
         //declaring and setting clicklistener for it
-        Button bn=(Button)findViewById(R.id.button);
-        bn.setOnClickListener(new View.OnClickListener() {
+        FloatingActionButton scanDevicesButton = findViewById(R.id.scan_devices_button);
+        scanDevicesButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //call for startdiscovery()
@@ -44,77 +44,88 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         //Initializing arrayadapter
-        pairedDeviceAdapter =new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1);
-        NewDevicesArrayAdapter = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1);
+        mPairedDeviceAdapter = new ArrayAdapter<>(this, R.layout.device_name);
+        mNewDevicesArrayAdapter = new ArrayAdapter<>(this, R.layout.device_name);
 
         //initializing listviews for both new device and connected devices
-        ListView pairedListView =(ListView)findViewById(R.id.paired_device_list);
-        pairedListView.setAdapter(pairedDeviceAdapter);
+        ListView pairedListView = findViewById(R.id.paired_device_list);
+        pairedListView.setAdapter(mPairedDeviceAdapter);
 
-        ListView newlistView =(ListView)findViewById(R.id.new_device_list);
-        newlistView.setAdapter(NewDevicesArrayAdapter);
-
-        //initializing filters and registering call for broadcast receiver
-        filter= new IntentFilter(BluetoothDevice.ACTION_FOUND);
-        this.registerReceiver(mReceiver,filter);
-
-        filter=new IntentFilter(BluetoothAdapter.ACTION_DISCOVERY_FINISHED);
-        this.registerReceiver(mReceiver,filter);
+        ListView newListView = findViewById(R.id.new_device_list);
+        newListView.setAdapter(mNewDevicesArrayAdapter);
 
         //initialize bluetooth adapter
-        badapter=BluetoothAdapter.getDefaultAdapter();
-        if(badapter==null){
+        mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
+        if (mBluetoothAdapter == null) {
             Toast.makeText(this, "NO BLUETOOTH DEVICE FOUND", Toast.LENGTH_SHORT).show();
 
         }
     }
-    public void startDiscovery(){
-        if(!badapter.isEnabled()){//if bluetooth is turned off this will return true
-            Intent i= new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);//ACTION_REQUEST_ENABLE is
-           //bluetooth if bluetooth is turned off
-            startActivityForResult(i,REQUEST_CODE);//this will call override methos -->onStartActivityForResult
-        }else {//this block is executed if bluetooth is already turned on
 
-                Intent i =new Intent(BluetoothAdapter.ACTION_REQUEST_DISCOVERABLE);
-            //ACTION_REQUEST_DISCOVERABLE means if bluetooth  makes visibile tour device bluetooth
+    @Override
+    protected void onResume() {
+        super.onResume();
+        //initializing filters and registering call for broadcast receiver
+        mActionFoundFilter = new IntentFilter(BluetoothDevice.ACTION_FOUND);
+        this.registerReceiver(mReceiver, mActionFoundFilter);
+
+        mActionDiscoveryFinishedFilter = new IntentFilter(BluetoothAdapter.ACTION_DISCOVERY_FINISHED);
+        this.registerReceiver(mReceiver, mActionDiscoveryFinishedFilter);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        this.unregisterReceiver(mReceiver);
+    }
+
+    public void startDiscovery() {
+        if (!mBluetoothAdapter.isEnabled()) {//if bluetooth is turned off this will return true
+            Intent i = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);//ACTION_REQUEST_ENABLE is
+            //bluetooth if bluetooth is turned off
+            startActivityForResult(i, REQUEST_CODE);//this will call override methods -->onStartActivityForResult
+        } else {//this block is executed if bluetooth is already turned on
+
+            Intent i = new Intent(BluetoothAdapter.ACTION_REQUEST_DISCOVERABLE);
+            //ACTION_REQUEST_DISCOVERABLE means if bluetooth  makes visible tour device bluetooth
             // for 120 seconds
-            //NOTE vISIBLE TIME DEPENDS UPON THE ANDROID VERSION YOU ARE USING
-                startActivityForResult(i,REQUEST_CODE);
+            //NOTE VISIBLE TIME DEPENDS UPON THE ANDROID VERSION YOU ARE USING
+            startActivityForResult(i, REQUEST_CODE);
 
         }
-       //this will start discovering new devices
-        badapter.startDiscovery();
+        //this will start discovering new devices
+        mBluetoothAdapter.startDiscovery();
 
 
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if(requestCode==REQUEST_CODE){
-            if(requestCode==RESULT_OK) {
+        if (requestCode == REQUEST_CODE) {
+            if (requestCode == RESULT_OK) {
                 Toast.makeText(this, "BLUETOOTH TURNED ON SUCCESSFULLY", Toast.LENGTH_LONG).show();
-                         }
-                    }
-            if(requestCode==REQUEST_CODE){
-                Toast.makeText(this, "BLUETOOTH IS ALREADY ON", Toast.LENGTH_LONG).show();
             }
-        //Bluettoth Devices
-        Set<BluetoothDevice> pairedevices = badapter.getBondedDevices();
-            if(pairedevices.size()>0){
+        }
+        if (requestCode == REQUEST_CODE) {
+            Toast.makeText(this, "BLUETOOTH IS ALREADY ON", Toast.LENGTH_LONG).show();
+        }
+        //Bluetooth Devices
+        Set<BluetoothDevice> paireDevices = mBluetoothAdapter.getBondedDevices();
+        if (paireDevices.size() > 0) {
 
-                if (pairedDeviceAdapter != null && !pairedDeviceAdapter.isEmpty())
-                    pairedDeviceAdapter.clear();
+            if (mPairedDeviceAdapter != null && !mPairedDeviceAdapter.isEmpty())
+                mPairedDeviceAdapter.clear();
 
-                for(BluetoothDevice bdevice: pairedevices) {
-                    pairedDeviceAdapter.add(bdevice.getName().toString() + " \n" + bdevice.getAddress());
-                }
-
-                }else{
-                    String noDevice="NO DEVICE HAS BEEN CONNECTED";
-                    pairedDeviceAdapter.add(noDevice);
-
-                }
+            for (BluetoothDevice bDevice : paireDevices) {
+                mPairedDeviceAdapter.add(bDevice.getName() + " \n" + bDevice.getAddress());
             }
+
+        } else {
+            String noDevice = getString(R.string.no_devices_connected);
+            mPairedDeviceAdapter.add(noDevice);
+
+        }
+    }
 
 
     BroadcastReceiver mReceiver = new BroadcastReceiver() {
@@ -128,15 +139,15 @@ public class MainActivity extends AppCompatActivity {
                 BluetoothDevice device = intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE);
                 // If it's already paired, skip it, because it's been listed already
                 if (device.getBondState() != BluetoothDevice.BOND_BONDED) {
-                    NewDevicesArrayAdapter.add(device.getName() + "\n" + device.getAddress());
+                    mNewDevicesArrayAdapter.add(device.getName() + "\n" + device.getAddress());
                 }
                 // When discovery is finished, change the Activity title
             } else if (BluetoothAdapter.ACTION_DISCOVERY_FINISHED.equals(action)) {
                 setProgressBarIndeterminateVisibility(false);
 
-                if (NewDevicesArrayAdapter.getCount() == 0) {
+                if (mNewDevicesArrayAdapter.getCount() == 0) {
                     String noDevices = "NO DEVICE FOUND";
-                    NewDevicesArrayAdapter.add(noDevices);
+                    mNewDevicesArrayAdapter.add(noDevices);
                 }
             }
         }

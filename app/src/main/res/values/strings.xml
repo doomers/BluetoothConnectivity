@@ -1,6 +1,7 @@
 <resources>
-    <string name="app_name">BluetoothConnectivity</string>
+    <string name="app_name">Bluetooth Connectivity</string>
     <string name="paired_list_text">Paired Devices</string>
     <string name="new_device_list">New Devices</string>
-    <string name="searchbutton">SCAN NEW DEVICES</string>
+    <string name="searchbutton">Scan New Devices</string>
+    <string name="no_devices_connected">NO DEVICE HAS BEEN CONNECTED</string>
 </resources>
