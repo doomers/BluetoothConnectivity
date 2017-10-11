@@ -1,89 +1,84 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="in.doomers.rahul.bluetoothconnectivity.MainActivity">
 
-    <TextView
+    <android.support.v7.widget.AppCompatTextView
+        android:id="@+id/paired_title_text_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
         android:text="@string/paired_list_text"
-        android:textSize="17sp"
-        android:id="@+id/textView"
-        android:paddingLeft="16dp"
-        android:paddingRight="4dp"
-        android:layout_marginTop="10dp"
-        android:paddingBottom="6dp"
-        android:layout_alignParentTop="true"
-        />
-
-    <View
-        android:id="@+id/filler"
-        android:layout_width="match_parent"
-        android:layout_height="0.5dp"
-        android:layout_below="@id/textView"
-        android:layout_marginLeft="16dp"
-        android:layout_marginTop="8dp"
-        android:background="#EEE"
-        />
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:textStyle="italic"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ListView
-        android:layout_width="match_parent"
-        android:layout_height="200sp"
         android:id="@+id/paired_device_list"
-        android:layout_below="@+id/filler"
-        android:layout_alignLeft="@+id/textView"
-        android:layout_alignStart="@+id/textView" />
-
-    <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/new_device_list"
-        android:id="@+id/textView2"
-        android:textSize="17sp"
-        android:layout_below="@+id/paired_device_list"
-        android:layout_alignLeft="@+id/paired_device_list"
-        android:layout_alignStart="@+id/paired_device_list"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:paddingLeft="16dp"
-        android:paddingRight="4dp"
-        android:layout_marginTop="10dp"
-        android:paddingBottom="6dp" />
-
-    <View
-        android:id="@+id/filler2"
-        android:layout_width="match_parent"
-        android:layout_height="0.5dp"
-        android:layout_below="@id/textView2"
-        android:layout_marginLeft="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
-        android:background="#EEE"
-        />
+        android:visibility="visible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/paired_title_text_view"
+        tools:listitem="@layout/device_name" />
+
+    <android.support.v7.widget.AppCompatTextView
+        android:id="@+id/new_title_text_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:text="@string/new_device_list"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:textStyle="italic"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/guideline" />
+
 
     <ListView
-        android:layout_width="match_parent"
-        android:layout_height="200sp"
         android:id="@+id/new_device_list"
-        android:layout_below="@+id/filler2"
-        android:layout_alignLeft="@+id/textView2"
-        android:layout_alignStart="@+id/textView2" />
-
-    <Button
         android:layout_width="match_parent"
-        android:layout_height="@dimen/button_height"
-        android:text="@string/searchbutton"
-        android:id="@+id/button"
-        android:layout_marginLeft="@dimen/button_margin"
-        android:layout_marginRight="@dimen/button_margin"
-        android:layout_marginBottom="@dimen/button_margin"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
-        android:textStyle="bold"
-        android:layout_alignParentEnd="true"
-        android:theme="@style/ButtonTheme"
-        android:textColor="@color/white"
-        android:visibility="visible" />
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:visibility="visible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/new_title_text_view"
+        tools:listitem="@layout/device_name" />
 
-</RelativeLayout>
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/scan_devices_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
+        app:elevation="2dp"
+        app:fabSize="normal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:srcCompat="@drawable/ic_search" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.5" />
+
+</android.support.constraint.ConstraintLayout>
