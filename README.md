@@ -9,7 +9,7 @@ Java JDK</br>
 
 ### Screenshot
 
-[Alt text](https://user-images.githubusercontent.com/22350239/32141540-2f9aff6e-bca9-11e7-9e87-fc1032aa9644.jpg "Main Screen")
+![Alt text](https://user-images.githubusercontent.com/22350239/32141540-2f9aff6e-bca9-11e7-9e87-fc1032aa9644.jpg "Main Screen")
 
 ## Contributing
 
