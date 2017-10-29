@@ -1,10 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v7.widget.AppCompatTextView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@android:id/text1"
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:paddingEnd="16dp"
-    android:paddingStart="16dp"
-    android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
-    tools:text="ABCD" />
+    android:layout_height="60sp"
+    android:orientation="horizontal">
+
+    <ImageView
+        android:layout_width="40sp"
+        android:layout_height="40sp"
+        android:layout_gravity="center"
+        android:layout_marginLeft="10sp"
+        android:layout_marginStart="10sp"
+        android:background="@drawable/phone"/>
+
+    <TextView
+        android:id="@+id/tv"
+        android:layout_width="fill_parent"
+        android:layout_height="60sp"
+        android:layout_marginLeft="20sp"
+        android:layout_marginStart="20sp"
+        android:text="Aditya Das"
+        android:textStyle="bold"
+        android:textSize="15sp"
+        android:gravity="center_vertical"
+        android:textColor="#000000" />
+
+</LinearLayout>

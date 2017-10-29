@@ -44,8 +44,8 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         //Initializing arrayadapter
-        mPairedDeviceAdapter = new ArrayAdapter<>(this, R.layout.device_name);
-        mNewDevicesArrayAdapter = new ArrayAdapter<>(this, R.layout.device_name);
+        mPairedDeviceAdapter = new ArrayAdapter<>(this, R.layout.device_name, R.id.tv);
+        mNewDevicesArrayAdapter = new ArrayAdapter<>(this, R.layout.device_name, R.id.tv);
 
         //initializing listviews for both new device and connected devices
         ListView pairedListView = findViewById(R.id.paired_device_list);
